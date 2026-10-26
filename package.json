@@ -5,6 +5,7 @@
   "description": "A test repository for Clara.",
   "type": "module",
   "exports": {
+    "./chunk": "./src/chunk.js",
     "./pagination": "./src/pagination.js",
     "./retry": "./src/retry.js"
   },
