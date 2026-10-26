@@ -1,0 +1,17 @@
+{
+  "name": "clara-playground",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A test repository for Clara.",
+  "type": "module",
+  "exports": {
+    "./pagination": "./src/pagination.js",
+    "./retry": "./src/retry.js"
+  },
+  "scripts": {
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}
