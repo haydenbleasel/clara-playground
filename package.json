@@ -9,7 +9,8 @@
     "./retry": "./src/retry.js"
   },
   "scripts": {
-    "test": "node --test"
+    "test": "node --test",
+    "preview": "node src/preview-server.js"
   },
   "engines": {
     "node": ">=22"
