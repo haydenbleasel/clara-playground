@@ -28,3 +28,9 @@ test("rejects a size that is not a positive integer", () => {
     assert.throws(() => chunk([1, 2, 3, 4], size), RangeError);
   }
 });
+
+test("rejects items that are not an array", () => {
+  for (const items of [null, undefined, "abcde", { length: 2 }, 5]) {
+    assert.throws(() => chunk(items, 2), TypeError);
+  }
+});
