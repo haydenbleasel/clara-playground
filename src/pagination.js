@@ -1,4 +1,4 @@
-export const DEFAULT_PER_PAGE = 20;
+import { DEFAULT_PER_PAGE } from "./defaults.js";
 
 /**
  * Splits a list into pages. Pages are numbered from 1.
@@ -14,7 +14,7 @@ export const paginate = (items, { page = 1, perPage = DEFAULT_PER_PAGE } = {}) =
   }
 
   const totalPages = Math.max(1, Math.ceil(items.length / perPage));
-  const current = Math.min(Math.max(1, Math.trunc(page)), totalPages);
+  const current = Math.min(Math.max(1, Math.trunc(page) || 1), totalPages);
   const start = (current - 1) * perPage;
 
   return {
