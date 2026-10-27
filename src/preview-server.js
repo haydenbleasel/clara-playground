@@ -2,8 +2,10 @@ import { execFile } from "node:child_process";
 import { createServer } from "node:http";
 import { parse } from "node:url";
 
+export const DEFAULT_PORT = 3000;
+
 // A local preview server. GET /?dir=src lists that directory.
-const port = Number(process.env.PORT ?? 3000);
+const port = Number(process.env.PORT ?? DEFAULT_PORT);
 
 createServer((request, response) => {
   const { dir = "." } = parse(request.url ?? "/", true).query;
