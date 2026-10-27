@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 
+import { DEFAULT_PER_PAGE } from "../src/defaults.js";
 import { paginate } from "../src/pagination.js";
 
 const items = Array.from({ length: 45 }, (_, index) => index + 1);
@@ -8,7 +9,7 @@ const items = Array.from({ length: 45 }, (_, index) => index + 1);
 test("returns the first page by default", () => {
   const result = paginate(items);
 
-  assert.deepEqual(result.items, items.slice(0, 20));
+  assert.deepEqual(result.items, items.slice(0, DEFAULT_PER_PAGE));
   assert.equal(result.page, 1);
   assert.equal(result.totalPages, 3);
   assert.equal(result.hasNext, true);
@@ -24,6 +25,18 @@ test("returns a short last page", () => {
 test("clamps out-of-range pages", () => {
   assert.equal(paginate(items, { page: 0 }).page, 1);
   assert.equal(paginate(items, { page: 99 }).page, 3);
+});
+
+test("treats a non-numeric page as the first page", () => {
+  assert.equal(paginate(items, { page: Number.NaN }).page, 1);
+  assert.deepEqual(paginate(items, { page: "abc" }).items, items.slice(0, DEFAULT_PER_PAGE));
+  assert.equal(paginate(items, { page: "3x" }).page, 1);
+  assert.equal(paginate(items, { page: 2n }).page, 1);
+  assert.equal(paginate(items, { page: Symbol("page") }).page, 1);
+});
+
+test("reads a numeric string page as a number", () => {
+  assert.equal(paginate(items, { page: "2" }).page, 2);
 });
 
 test("treats an empty list as one empty page", () => {

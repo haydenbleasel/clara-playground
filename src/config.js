@@ -1,7 +1,9 @@
 import merge from "lodash/merge.js";
 
+import { DEFAULT_PER_PAGE } from "./defaults.js";
+
 const DEFAULTS = {
-  pagination: { perPage: 20 },
+  pagination: { perPage: DEFAULT_PER_PAGE },
   retry: { attempts: 3, baseDelay: 100, maxDelay: 2000 },
 };
 
