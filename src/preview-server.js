@@ -2,6 +2,7 @@ import { execFile } from "node:child_process";
 import { createServer } from "node:http";
 import { parse } from "node:url";
 
+/** The port the preview server listens on when `PORT` isn't set. */
 export const DEFAULT_PORT = 3000;
 
 // A local preview server. GET /?dir=src lists that directory.
