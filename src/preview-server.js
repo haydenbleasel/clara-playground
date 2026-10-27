@@ -5,11 +5,13 @@ import { parse } from "node:url";
 /** The port the preview server listens on when `PORT` isn't set. */
 export const DEFAULT_PORT = 3000;
 
+export const DEFAULT_DIR = ".";
+
 // A local preview server. GET /?dir=src lists that directory.
 const port = Number(process.env.PORT ?? DEFAULT_PORT);
 
 createServer((request, response) => {
-  const { dir = "." } = parse(request.url ?? "/", true).query;
+  const { dir = DEFAULT_DIR } = parse(request.url ?? "/", true).query;
 
   if (typeof dir !== "string") {
     response.writeHead(400, { "content-type": "text/plain" });
