@@ -1,3 +1,5 @@
+export const DEFAULT_PER_PAGE = 20;
+
 /**
  * Splits a list into pages. Pages are numbered from 1.
  *
@@ -6,7 +8,7 @@
  * @param {{ page?: number, perPage?: number }} [options]
  * @returns {{ items: T[], page: number, totalPages: number, hasNext: boolean }}
  */
-export const paginate = (items, { page = 1, perPage = 20 } = {}) => {
+export const paginate = (items, { page = 1, perPage = DEFAULT_PER_PAGE } = {}) => {
   if (!Number.isInteger(perPage) || perPage < 1) {
     throw new RangeError("perPage must be a positive integer");
   }

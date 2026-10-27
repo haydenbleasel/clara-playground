@@ -1,14 +1,14 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 
-import { paginate } from "../src/pagination.js";
+import { DEFAULT_PER_PAGE, paginate } from "../src/pagination.js";
 
 const items = Array.from({ length: 45 }, (_, index) => index + 1);
 
 test("returns the first page by default", () => {
   const result = paginate(items);
 
-  assert.deepEqual(result.items, items.slice(0, 20));
+  assert.deepEqual(result.items, items.slice(0, DEFAULT_PER_PAGE));
   assert.equal(result.page, 1);
   assert.equal(result.totalPages, 3);
   assert.equal(result.hasNext, true);
