@@ -5,6 +5,7 @@ import { parse } from "node:url";
 /** The port the preview server listens on when `PORT` isn't set. */
 export const DEFAULT_PORT = 3000;
 
+/** The directory the preview server lists when the request has no `dir` parameter. */
 export const DEFAULT_DIR = ".";
 
 // A local preview server. GET /?dir=src lists that directory.
