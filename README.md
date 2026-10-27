@@ -7,3 +7,5 @@ Nothing here is published or meant to be used.
 ```bash
 npm test
 ```
+
+Every export in `src/` needs a JSDoc comment; `npm test` checks it.
