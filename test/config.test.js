@@ -23,3 +23,16 @@ test("merges an INI file's sections into the defaults", () => {
   assert.equal(config.retry.attempts, "5");
   assert.equal(config.retry.baseDelay, 100);
 });
+
+test("ignores a __proto__ section in an INI file", () => {
+  const path = join(mkdtempSync(join(tmpdir(), "config-")), "clara.ini");
+  writeFileSync(path, "[__proto__]\npolluted = yes\n");
+
+  try {
+    loadConfigFile(path);
+
+    assert.equal({}.polluted, undefined);
+  } finally {
+    delete Object.prototype.polluted;
+  }
+});
