@@ -24,6 +24,16 @@ test("returns a short last page", () => {
 test("clamps out-of-range pages", () => {
   assert.equal(paginate(items, { page: 0 }).page, 1);
   assert.equal(paginate(items, { page: 99 }).page, 3);
+  assert.equal(paginate(items, { page: -Infinity }).page, 1);
+  assert.equal(paginate(items, { page: Infinity }).page, 3);
+});
+
+test("falls back to the first page when page is NaN", () => {
+  const result = paginate(items, { page: Number.NaN });
+
+  assert.deepEqual(result.items, items.slice(0, 20));
+  assert.equal(result.page, 1);
+  assert.equal(result.hasNext, true);
 });
 
 test("treats an empty list as one empty page", () => {
