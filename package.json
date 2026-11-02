@@ -6,6 +6,7 @@
   "type": "module",
   "exports": {
     "./cache": "./src/cache.js",
+    "./lru": "./src/lru.js",
     "./pagination": "./src/pagination.js",
     "./retry": "./src/retry.js"
   },
