@@ -5,6 +5,7 @@
   "description": "A test repository for Clara.",
   "type": "module",
   "exports": {
+    "./cache": "./src/cache.js",
     "./pagination": "./src/pagination.js",
     "./retry": "./src/retry.js"
   },
