@@ -1,5 +1,7 @@
 /**
  * Splits a list into pages. Pages are numbered from 1.
+ * Fractional pages are truncated. Pages below 1, -Infinity, and NaN give the
+ * first page; pages past the end and Infinity give the last page.
  *
  * @template T
  * @param {readonly T[]} items
@@ -12,7 +14,7 @@ export const paginate = (items, { page = 1, perPage = 20 } = {}) => {
   }
 
   const totalPages = Math.max(1, Math.ceil(items.length / perPage));
-  const current = Math.min(Math.max(1, Math.trunc(page)), totalPages);
+  const current = Math.min(Math.max(1, Math.trunc(page) || 1), totalPages);
   const start = (current - 1) * perPage;
 
   return {
