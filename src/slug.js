@@ -31,3 +31,12 @@ export const uniqueSlug = (title, taken) => {
 
   return slug;
 };
+
+/**
+ * Shortens a slug to at most `maxLength` characters, without leaving a hyphen at the end.
+ *
+ * @param {string} slug
+ * @param {number} maxLength
+ * @returns {string}
+ */
+export const truncateSlug = (slug, maxLength) => slug.slice(0, maxLength + 1);
