@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 
-import { slugify, uniqueSlug } from "../src/slug.js";
+import { slugify, truncateSlug, uniqueSlug } from "../src/slug.js";
 
 test("lowercases letters and keeps digits", () => {
   assert.equal(slugify("Hello World 2024"), "hello-world-2024");
@@ -42,4 +42,35 @@ test("falls back to untitled for a title with no ASCII letters or digits", () =>
   assert.equal(uniqueSlug("日本語", new Set()), "untitled");
   assert.equal(uniqueSlug("!!!", new Set(["untitled"])), "untitled-2");
   assert.equal(uniqueSlug("", new Set([""])), "untitled");
+});
+
+test("truncates to at most maxLength characters", () => {
+  assert.equal(truncateSlug("hello-world", 5), "hello");
+  assert.equal(truncateSlug("hello-world", 7), "hello-w");
+  assert.equal(truncateSlug("hello-world", 11), "hello-world");
+  assert.equal(truncateSlug("hello-world", 20), "hello-world");
+});
+
+test("never leaves a hyphen at the end after truncating", () => {
+  assert.equal(truncateSlug("hello-world", 6), "hello");
+  assert.equal(truncateSlug("a--b", 3), "a");
+});
+
+test("treats a negative or fractional maxLength as zero or rounds it down", () => {
+  assert.equal(truncateSlug("hello-world", -2), "");
+  assert.equal(truncateSlug("hello-world", 0), "");
+  assert.equal(truncateSlug("hello-world", 5.9), "hello");
+});
+
+test("shortens the base before adding a suffix so the slug fits maxLength", () => {
+  assert.equal(uniqueSlug("Long Title", new Set(), 10), "long-title");
+  assert.equal(uniqueSlug("Long Title", new Set(["long-title"]), 10), "long-tit-2");
+  assert.equal(uniqueSlug("Long Title", new Set(["long-title", "long-tit-2"]), 10), "long-tit-3");
+  assert.equal(uniqueSlug("Long Title", new Set(["long"]), 5), "lon-2");
+  assert.equal(uniqueSlug("!!!", new Set(["untit"]), 5), "unt-2");
+});
+
+test("throws when maxLength leaves no room for the base", () => {
+  assert.throws(() => uniqueSlug("Post", new Set(), 0), RangeError);
+  assert.throws(() => uniqueSlug("Post", new Set(["po"]), 2), RangeError);
 });
