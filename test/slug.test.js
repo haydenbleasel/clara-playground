@@ -23,6 +23,12 @@ test("returns an empty slug for a title with no ASCII letters or digits", () => 
   assert.equal(slugify("日本語"), "");
 });
 
+test("doesn't turn non-ASCII letters into ASCII ones", () => {
+  assert.equal(slugify("İstanbul"), "stanbul");
+  assert.equal(slugify("\u212A"), "");
+  assert.equal(uniqueSlug("\u212A", new Set()), "untitled");
+});
+
 test("returns the plain slug when it's free", () => {
   assert.equal(uniqueSlug("Post", new Set()), "post");
 });

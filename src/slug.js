@@ -7,9 +7,9 @@
  */
 export const slugify = (title) =>
   title
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "");
+    .replace(/[^A-Za-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .toLowerCase();
 
 /**
  * Returns a slug for `title` that isn't in `taken`, by adding `-2`, `-3`, and so on until one is
