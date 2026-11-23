@@ -69,3 +69,11 @@ export const anchorId = (heading) =>
     .replace(/[\s_-]+/g, "-")
     .replace(/^-+|-+$/g, "")
     .toLowerCase();
+
+/**
+ * Removes whitespace from the start and end of a title.
+ *
+ * @param {string} title
+ * @returns {string}
+ */
+export const trimTitle = (title) => title.replace(/^\s+|\s+$/g, "");

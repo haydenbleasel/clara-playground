@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 
-import { anchorId, slugify, truncateSlug, uniqueSlug } from "../src/slug.js";
+import { anchorId, slugify, trimTitle, truncateSlug, uniqueSlug } from "../src/slug.js";
 
 test("lowercases letters and keeps digits", () => {
   assert.equal(slugify("Hello World 2024"), "hello-world-2024");
@@ -79,4 +79,9 @@ test("turns a heading into an anchor id", () => {
   assert.equal(anchorId("Getting Started"), "getting-started");
   assert.equal(anchorId("  snake_case -- name  "), "snake-case-name");
   assert.equal(anchorId("--a--"), "a");
+});
+
+test("trims whitespace from both ends of a title", () => {
+  assert.equal(trimTitle("  Hello World \n"), "Hello World");
+  assert.equal(trimTitle("Hello"), "Hello");
 });
