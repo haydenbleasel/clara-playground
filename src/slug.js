@@ -56,3 +56,16 @@ export const uniqueSlug = (title, taken, maxLength = Infinity) => {
  */
 export const truncateSlug = (slug, maxLength) =>
   slug.slice(0, Math.max(0, Math.floor(maxLength))).replace(/-+$/, "");
+
+/**
+ * Turns a heading into an anchor id: lowercase, with each run of whitespace, underscores, and
+ * hyphens replaced by one hyphen, and no hyphen at the start or end. Other characters are kept.
+ *
+ * @param {string} heading
+ * @returns {string}
+ */
+export const anchorId = (heading) =>
+  heading
+    .replace(/[\s_-]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .toLowerCase();

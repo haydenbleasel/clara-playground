@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 
-import { slugify, truncateSlug, uniqueSlug } from "../src/slug.js";
+import { anchorId, slugify, truncateSlug, uniqueSlug } from "../src/slug.js";
 
 test("lowercases letters and keeps digits", () => {
   assert.equal(slugify("Hello World 2024"), "hello-world-2024");
@@ -73,4 +73,10 @@ test("shortens the base before adding a suffix so the slug fits maxLength", () =
 test("throws when maxLength leaves no room for the base", () => {
   assert.throws(() => uniqueSlug("Post", new Set(), 0), RangeError);
   assert.throws(() => uniqueSlug("Post", new Set(["po"]), 2), RangeError);
+});
+
+test("turns a heading into an anchor id", () => {
+  assert.equal(anchorId("Getting Started"), "getting-started");
+  assert.equal(anchorId("  snake_case -- name  "), "snake-case-name");
+  assert.equal(anchorId("--a--"), "a");
 });
