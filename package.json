@@ -8,7 +8,8 @@
     "./cache": "./src/cache.js",
     "./lru": "./src/lru.js",
     "./pagination": "./src/pagination.js",
-    "./retry": "./src/retry.js"
+    "./retry": "./src/retry.js",
+    "./slug": "./src/slug.js"
   },
   "scripts": {
     "test": "node --test && node scripts/check-docs.js",
